@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人口结构 × 生产力 对应模型</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+    background: #F5F7FA;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+  .card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 40px 48px 44px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    max-width: 740px;
+    width: 100%;
+  }
+  .card-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .card-header h1 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a2b3c;
+    letter-spacing: 0.5px;
+  }
+  .card-header p {
+    font-size: 12px;
+    color: #9aaabb;
+    margin-top: 5px;
+  }
+
+  /* Column headers */
+  .col-headers {
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    margin-bottom: 10px;
+  }
+  .col-header {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 0;
+    border-radius: 6px;
+  }
+  .col-header.left  { background: #FFF3DC; color: #9a6200; }
+  .col-header.right { background: #DFF0FF; color: #1b4f86; }
+
+  /* Rows */
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  .shape-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px;
+    border-radius: 12px;
+    background: #FAFBFD;
+    border: 1.5px solid #EEF2F7;
+    transition: box-shadow 0.15s;
+  }
+  .shape-cell:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .shape-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d4f60;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .shape-desc {
+    font-size: 10.5px;
+    color: #9aaabb;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Arrow connector */
+  .connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+  .arrow-line {
+    width: 32px;
+    height: 1.5px;
+    background: #C8D6E5;
+    position: relative;
+  }
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left: 7px solid #C8D6E5;
+  }
+  .connector-label {
+    font-size: 9px;
+    color: #b0c0d0;
+    letter-spacing: 0.3px;
+  }
+
+  /* Row label */
+  .row-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+  }
+  .badge-grow  { background: #E8F5E9; color: #2e7d32; }
+  .badge-age   { background: #FDECEA; color: #8c2319; }
+
+  /* Divider */
+  .row-divider {
+    height: 1px;
+    background: #EEF2F7;
+    margin: 4px 0;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 10.5px;
+    color: #c0ccd8;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <h1>人口结构 × 生产力 &nbsp;对应模型</h1>
+    <p>两种典型人口形态及其对生产力结构的影响</p>
+  </div>
+
+  <!-- Column headers -->
+  <div class="col-headers">
+    <div class="col-header left">👥 人口结构</div>
+    <div></div>
+    <div class="col-header right">⚡ 生产力</div>
+  </div>
+
+  <div class="rows">
+
+    <!-- Row 1: Growing -->
+    <div class="row">
+      <!-- Left: Triangle -->
+      <div class="shape-cell">
+        <span class="row-badge badge-grow">增长型</span>
+        <svg width="110" height="90" viewBox="0 0 110 90">
+          <polygon points="55,8 100,82 10,82"
+            fill="#FFF3DC" stroke="#F4A820" stroke-width="2.5"
+            stroke-linejoin="round"/>
+          <!-- Base label -->
+          <text x="55" y="78" text-anchor="middle" font-size="9" fill="#9a6200" font-family="system-ui">青壮年多</text>
+          <!-- Top label -->
+          <text x="55" y="22" text-anchor="middle" font-size="9" fill="#c8a060" font-family="system-ui">老年少</text>
+        </svg>
+        <div class="shape-label">正三角形</div>
+        <div class="shape-desc">底部宽大<br>年轻人口多，老龄化低</div>
+      </div>
+
+      <!-- Connector -->
+      <div class="connector">
+        <div class="arrow-line"></div>
+        <div class="connector-label">对应</div>
+      </div>
+
+      <!-- Right: Wide-top trapezoid -->
+      <div class="shape-cell">
+        <span class="row-badge badge-grow">扩张型</span>
+        <svg width="110" height="90" viewBox="0 0 110 90">
+          <polygon points="18,12 92,12 78,82 32,82"
+            fill="#DFF0FF" stroke="#5B9BD5" stroke-width="2.5"
+            stroke-linejoin="round"/>
+          <text x="55" y="38" text-anchor="middle" font-size="9" fill="#1b4f86" font-family="system-ui">高产能</text>
+          <text x="55" y="74" text-anchor="middle" font-size="9" fill="#5B9BD5" font-family="system-ui">基础广</text>
+        </svg>
+        <div class="shape-label">正梯形</div>
+        <div class="shape-desc">生产规模扩张<br>劳动力充足，产能上升</div>
+      </div>
+    </div>
+
+    <div class="row-divider"></div>
+
+    <!-- Row 2: Aging -->
+    <div class="row">
+      <!-- Left: Hourglass -->
+      <div class="shape-cell">
+        <span class="row-badge badge-age">老龄化型</span>
+        <svg width="110" height="90" viewBox="0 0 110 90">
+          <!-- Hourglass: top triangle + bottom triangle -->
+          <polygon points="15,8 95,8 55,46"
+            fill="#FFF3DC" stroke="#F4A820" stroke-width="2.5"
+            stroke-linejoin="round"/>
+          <polygon points="55,46 15,84 95,84"
+            fill="#FFF3DC" stroke="#F4A820" stroke-width="2.5"
+            stroke-linejoin="round"/>
+          <!-- center dot -->
+          <circle cx="55" cy="46" r="3" fill="#F4A820"/>
+          <text x="55" y="26" text-anchor="middle" font-size="9" fill="#9a6200" font-family="system-ui">老年多</text>
+          <text x="55" y="72" text-anchor="middle" font-size="9" fill="#c8a060" font-family="system-ui">幼儿少</text>
+        </svg>
+        <div class="shape-label">沙漏形</div>
+        <div class="shape-desc">中间层（劳动力）萎缩<br>两端膨胀，结构断层</div>
+      </div>
+
+      <!-- Connector -->
+      <div class="connector">
+        <div class="arrow-line"></div>
+        <div class="connector-label">对应</div>
+      </div>
+
+      <!-- Right: Inverted triangle -->
+      <div class="shape-cell">
+        <span class="row-badge badge-age">收缩型</span>
+        <svg width="110" height="90" viewBox="0 0 110 90">
+          <polygon points="10,10 100,10 55,82"
+            fill="#FDECEA" stroke="#E57373" stroke-width="2.5"
+            stroke-linejoin="round"/>
+          <text x="55" y="26" text-anchor="middle" font-size="9" fill="#8c2319" font-family="system-ui">存量大</text>
+          <text x="55" y="72" text-anchor="middle" font-size="9" fill="#e57373" font-family="system-ui">增量少</text>
+        </svg>
+        <div class="shape-label">倒三角形</div>
+        <div class="shape-desc">生产力逐步萎缩<br>依靠存量，增量不足</div>
+      </div>
+    </div>
+
+  </div><!-- /rows -->
+
+  <div class="footer">Generated by 小D &nbsp;·&nbsp; 2026</div>
+</div>
+</body>
+</html>
